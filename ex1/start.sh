@@ -8,7 +8,7 @@ for port in 80 443
 do
     node_port=$(kubectl get service -n ingress-nginx ingress-nginx -o=jsonpath="{.spec.ports[?(@.port == ${port})].nodePort}")
 
-    docker run -d --name banzai-kind-proxy-${port} \
+    docker run -d --name host-to-kind-proxy-${port} \
       --publish 127.0.0.1:${port}:${port} \
       --link ex1-control-plane:target \
       alpine/socat -dd \
