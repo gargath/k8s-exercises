@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cordon-nodes
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      name: cordon-nodes
+      namespace: kube-system
+    spec:
+      containers:
+      - name: kubectl
+        image: quay.io/pusher/kubectl:v1.11.0
+        command: ["/bin/bash", "-ec"]
+        args:
+        - |
+          for node in $(kubectl get nodes --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}'); do
+            kubectl cordon $node
+          done
+        env:
+        - name: FOO
+          value: "bar"
+      restartPolicy: Never
+  backoffLimit: 3

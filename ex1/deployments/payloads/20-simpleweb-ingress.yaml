@@ -6,11 +6,12 @@ metadata:
     app.kubernetes.io/name: simpleweb
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - http:
       paths:
-      - path: /simple
+      - path: /
         backend:
           serviceName: simpleweb
           servicePort: 80
