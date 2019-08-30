@@ -36,6 +36,7 @@ kind create cluster --config "$workdir"/kind-cluster.yaml --name $exercise
 KUBECONFIG="$(kind get kubeconfig-path --name="$exercise")"
 export KUBECONFIG
 
+i=0
 printf "\nConfiguring cluster ...\n"
 
 message="Waiting for control plane 🎮"
