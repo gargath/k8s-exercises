@@ -38,7 +38,6 @@ export KUBECONFIG
 
 printf "\nConfiguring cluster ...\n"
 
-i=0
 message="Waiting for control plane 🎮"
 while true; do
   spinner $i
@@ -58,7 +57,6 @@ done
 erase "$message"
 printf " ✓ %s\n" "$message"
 
-i=0
 message="Applying bootstrap components 👢"
 for f in "$workdir"/deployments/bootstrap/*.yaml; do
   spinner $i
@@ -69,7 +67,6 @@ for f in "$workdir"/deployments/bootstrap/*.yaml; do
 done
 printf " ✓ %s\n" "$message"
 
-i=0
 message="Waiting for bootstrap 🕑"
 while true; do
   spinner $i
@@ -89,7 +86,6 @@ done
 erase "$message"
 printf " ✓ %s\n" "$message"
 
-i=0
 message="Applying exercise components 📘"
 for f in "$workdir"/deployments/payloads/*.yaml; do
   spinner $i
@@ -116,4 +112,6 @@ erase "$message"
 printf " ✓ %s\n" "$message"
 
 printf "Cluster setup complete.\n"
-printf "\nDon't forget to export KUBECONFIG=\"\$(kind get kubeconfig-path --name=\"%s\")\"" "$exercise\n"
+printf "\nInstructions for this Exercise:\n\n"
+cat "$exercise"/INSTRUCTIONS.md
+printf "\nDon't forget to export KUBECONFIG=\"\$(kind get kubeconfig-path --name=\"%s\")\"\n" "$exercise"
